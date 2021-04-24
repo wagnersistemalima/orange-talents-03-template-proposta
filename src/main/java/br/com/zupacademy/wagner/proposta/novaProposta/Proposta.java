@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class Proposta implements Serializable{
 	private Long id;
 	
 	@NotBlank
+	@Column(unique = true)
 	private String documento;
 	
 	@Email
@@ -37,11 +39,13 @@ public class Proposta implements Serializable{
 	@NotNull
 	private BigDecimal salario;
 	
-	// associação com endereco
+	//associação com endereco / chave estrangeira / CascadeType.All quando atualizadas as informações 
+	// da Entidade Proposta, também será atualizado no banco de dados todas as informações da 
+	// Entidades endereco associada.
 	
 	@NotNull
 	@Valid
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
 	// construtor default

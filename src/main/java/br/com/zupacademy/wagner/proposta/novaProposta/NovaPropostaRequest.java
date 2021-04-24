@@ -107,6 +107,7 @@ public class NovaPropostaRequest implements Serializable{
 
 	public Proposta toModel() {
 		
+		
 		Endereco endereco = new Endereco(logradouro, bairro, complemento, uf);
 		
 		return new Proposta(documento, email, salario, endereco);
