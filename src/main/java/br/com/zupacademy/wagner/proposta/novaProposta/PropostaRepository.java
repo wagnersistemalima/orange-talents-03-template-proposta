@@ -1,8 +1,6 @@
-package br.com.zupacademy.wagner.proposta.exceptions;
+package br.com.zupacademy.wagner.proposta.novaProposta;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import br.com.zupacademy.wagner.proposta.novaProposta.Proposta;
 
 public interface PropostaRepository extends JpaRepository<Proposta, Long>{
 	

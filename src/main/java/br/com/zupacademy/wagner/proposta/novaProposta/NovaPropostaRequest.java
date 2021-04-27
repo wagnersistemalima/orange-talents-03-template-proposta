@@ -20,6 +20,9 @@ public class NovaPropostaRequest implements Serializable{
 	
 	// atributos basicos
 	
+	@NotBlank
+	private String nome;
+	
 	@CpfOuCnpj(domainClass = Proposta.class, fieldName = "documento")
 	@NotBlank
 	private String documento;
@@ -48,10 +51,10 @@ public class NovaPropostaRequest implements Serializable{
 	// construtor com argumentos
 	
 	@JsonCreator
-	public NovaPropostaRequest(@NotBlank String documento, @Email @NotBlank String email, @NotBlank String logradouro,
-			@NotBlank String bairro, @NotBlank String complemento, @Length(max = 2) @NotBlank String uf,
-			@Positive @NotNull BigDecimal salario) {
-		
+	public NovaPropostaRequest(@NotBlank String nome, @NotBlank String documento, @Email @NotBlank String email,
+			@NotBlank String logradouro, @NotBlank String bairro, @NotBlank String complemento,
+			@Length(max = 2) @NotBlank String uf, @Positive @NotNull BigDecimal salario) {
+		this.nome = nome;
 		this.documento = documento;
 		this.email = email;
 		this.logradouro = logradouro;
@@ -66,8 +69,11 @@ public class NovaPropostaRequest implements Serializable{
 	public String getDocumento() {
 		return documento;
 	}
+	
 
-
+	public String getNome() {
+		return nome;
+	}
 
 	public String getEmail() {
 		return email;
@@ -106,11 +112,10 @@ public class NovaPropostaRequest implements Serializable{
 	// metodo para converter request em entidade
 
 	public Proposta toModel() {
-		
-		
+				
 		Endereco endereco = new Endereco(logradouro, bairro, complemento, uf);
 		
-		return new Proposta(documento, email, salario, endereco);
+		return new Proposta(nome, documento, email, salario, endereco);
 	}
 
 }
