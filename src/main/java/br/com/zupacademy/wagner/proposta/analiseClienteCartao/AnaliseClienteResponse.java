@@ -24,18 +24,18 @@ public class AnaliseClienteResponse implements Serializable{
 		
 	}
 	
-	// construtor com argumentos
+	// construtor com argumentos recebendo uma entidade
 	
 	public AnaliseClienteResponse(Proposta entity) {
 		this.idProposta = entity.getId();
 		this.nome = entity.getNome();
 		this.statusProposta = entity.getStatusProposta();
 	}
-
+	
 
 	// getters
 
-	
+
 	public Long getIdProposta() {
 		return idProposta;
 	}

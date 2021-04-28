@@ -40,12 +40,14 @@ public class AnaliseClienteController {
 		
 		// validação
 		
-		if (proposta == null || !proposta.getDocumento().equals(request.getDocumento())) { //1
+		if (proposta == null || !proposta.getDocumento().equals(request.getDocumento()) || 
+				!proposta.getNome().equals(request.getNome())) { //1
 			
 			logger.warn("A pesquisa da proposta teve algum dado informado divergente");
 			
 			return ResponseEntity.notFound().build();
 		}
+		
 		
 			logger.info("Pesquisa realizada com sucesso! " + proposta.getId());
 		

@@ -5,6 +5,7 @@ public enum StatusPropostaClienteEnum {
 	// constantes
 	
 	NAO_ELEGIVEL,
-	ELEGIVEL;
+	ELEGIVEL,
+	NAO_ENVIADA;
 
 }

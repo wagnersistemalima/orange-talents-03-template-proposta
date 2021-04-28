@@ -55,7 +55,7 @@ public class NovaPropostaRequest implements Serializable{
 			@NotBlank String logradouro, @NotBlank String bairro, @NotBlank String complemento,
 			@Length(max = 2) @NotBlank String uf, @Positive @NotNull BigDecimal salario) {
 		this.nome = nome;
-		this.documento = documento;
+		this.documento = documento.replaceAll("[^0-9]", ""); // retira os caracteres . / - do documento
 		this.email = email;
 		this.logradouro = logradouro;
 		this.bairro = bairro;

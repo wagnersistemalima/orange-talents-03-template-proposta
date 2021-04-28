@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +33,7 @@ public class NovaPropostaController {
 	
 	// end point / inser / dados proposta
 	
-	@Transactional
+	
 	@PostMapping
 	public ResponseEntity<?> insertProposta(@Valid @RequestBody NovaPropostaRequest request) {      //1	
 		
@@ -54,7 +53,7 @@ public class NovaPropostaController {
 		Proposta proposta = request.toModel();                                                                              
 		repository.save(proposta);
 		
-		logger.info("Proposta criada com sucesso " + proposta.getId());
+		logger.info("Proposta criada com sucesso, idProposta = " + proposta.getId());
 		
 		// metodo enviar a proposta para analize Feing Cliente / Api externa /
 		
@@ -62,7 +61,10 @@ public class NovaPropostaController {
 		
 		repository.save(proposta);
 		
+		logger.info("Proposta salva com retorno da analise");
 		
+		
+		// relacionar a proposta aprovada com o numero do cartão
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()                             //1
 				.path("/{id}").buildAndExpand(proposta.getId()).toUri();

@@ -20,7 +20,7 @@ public class AnaliseClienteRequest implements Serializable{
 	// atributos basico
 	
 	@NotNull
-	private Long IdProposta;
+	private Long idProposta;
 	
 	@NotBlank
 	private String documento;
@@ -33,8 +33,8 @@ public class AnaliseClienteRequest implements Serializable{
 	
 	@JsonCreator
 	public AnaliseClienteRequest(@NotNull Long idProposta, @NotBlank String documento, @NotBlank String nome) {
-		IdProposta = idProposta;
-		this.documento = documento;
+		this.idProposta = idProposta;
+		this.documento = documento.replaceAll("[^0-9]", ""); // retira os caracteres . - / do documento
 		this.nome = nome;
 	}
 
@@ -45,21 +45,21 @@ public class AnaliseClienteRequest implements Serializable{
 	public String getDocumento() {
 		return documento;
 	}
+	
+	
 
-
-	public String getCliente() {
+	public String getNome() {
 		return nome;
 	}
-	
 
 
 	public Long getIdProposta() {
-		return IdProposta;
+		return idProposta;
 	}
 
 	public Proposta toModel(EntityManager manager) {
 		
-		Proposta novaProposta = manager.find(Proposta.class, this.IdProposta);
+		Proposta novaProposta = manager.find(Proposta.class, this.idProposta);
 				
 		return novaProposta;
 	}

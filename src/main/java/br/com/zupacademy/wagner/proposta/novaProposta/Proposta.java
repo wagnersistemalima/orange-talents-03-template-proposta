@@ -64,7 +64,7 @@ public class Proposta implements Serializable{
 	private Endereco endereco;
 	
 	@Enumerated(EnumType.STRING)
-	private StatusPropostaClienteEnum statusProposta = StatusPropostaClienteEnum.NAO_ELEGIVEL;
+	private StatusPropostaClienteEnum statusProposta = StatusPropostaClienteEnum.NAO_ENVIADA;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant dataRegistro;
@@ -85,7 +85,7 @@ public class Proposta implements Serializable{
 	public Proposta(@NotBlank String nome, @NotBlank String documento, @Email @NotBlank String email,
 			@Positive @NotNull BigDecimal salario, @NotNull @Valid Endereco endereco) {
 		this.nome = nome;
-		this.documento = documento;
+		this.documento = documento.replaceAll("[^0-9]", "");      
 		this.email = email;
 		this.salario = salario;
 		this.endereco = endereco;
@@ -135,6 +135,7 @@ public class Proposta implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((documento == null) ? 0 : documento.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -151,6 +152,11 @@ public class Proposta implements Serializable{
 			if (other.documento != null)
 				return false;
 		} else if (!documento.equals(other.documento))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
 	}
