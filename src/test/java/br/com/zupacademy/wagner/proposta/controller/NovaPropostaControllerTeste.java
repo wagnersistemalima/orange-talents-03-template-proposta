@@ -7,9 +7,12 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.zupacademy.wagner.proposta.analiseClienteCartao.AnaliseFeingCliente;
+import br.com.zupacademy.wagner.proposta.analiseClienteCartao.ResponseFeingCliente;
+import br.com.zupacademy.wagner.proposta.analiseClienteCartao.StatusPropostaClienteEnum;
 import br.com.zupacademy.wagner.proposta.novaProposta.NovaPropostaRequest;
 
 @SpringBootTest
@@ -30,6 +36,9 @@ public class NovaPropostaControllerTeste {
 
 	@Autowired
 	private ObjectMapper mapper;                      // desserializar
+	
+	@MockBean
+	private AnaliseFeingCliente analiseFeingCliente;
 	
 	private String nome;
 	private String documentoValido;
@@ -74,6 +83,7 @@ public class NovaPropostaControllerTeste {
 	@Test
 	public void deveCriarPropostaComSucessoRetornando201Created() throws JsonProcessingException, Exception {
 		
+		Mockito.when(analiseFeingCliente.consultarAnalise(ArgumentMatchers.any())).thenReturn(new ResponseFeingCliente("SEM_RESTRICAO"));
 		NovaPropostaRequest request = new NovaPropostaRequest(nome, documentoValido, email, logradouro, bairro, complemento, uf, salario);
 		
 		

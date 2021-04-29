@@ -10,18 +10,14 @@ public class ResponseFeingCliente implements Serializable{
 	
 	// atributos basico
 	
-	private String idProposta;
-	
-	private String nome;
-	
 	private String resultadoSolicitacao;
 	
+	
 	@JsonCreator
-	public ResponseFeingCliente(String idProposta, String nome, String resultadoSolicitacao) {
-		this.idProposta = idProposta;
-		this.nome = nome;
+	public ResponseFeingCliente(String resultadoSolicitacao) {
 		this.resultadoSolicitacao = resultadoSolicitacao;
 	}
+
 
 	// getters
 
@@ -29,13 +25,6 @@ public class ResponseFeingCliente implements Serializable{
 		return resultadoSolicitacao;
 	}
 
-	public String getIdProposta() {
-		return idProposta;
-	}
-
-	public String getNome() {
-		return nome;
-	}
 	
 	
 }
