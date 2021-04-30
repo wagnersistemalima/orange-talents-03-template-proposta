@@ -21,12 +21,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import org.slf4j.Logger;
-
-import br.com.zupacademy.wagner.proposta.analiseClienteCartao.AnaliseClienteRequest;
-import br.com.zupacademy.wagner.proposta.analiseClienteCartao.AnaliseFeingCliente;
 import br.com.zupacademy.wagner.proposta.analiseClienteCartao.ResponseFeingCliente;
 import br.com.zupacademy.wagner.proposta.analiseClienteCartao.StatusPropostaClienteEnum;
+import br.com.zupacademy.wagner.proposta.associaCartaoProposta.Cartao;
 
 @Entity
 public class Proposta implements Serializable{
@@ -71,6 +68,12 @@ public class Proposta implements Serializable{
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant updateDataRegistro;
+	
+	// associação com o cartao / Merge = atualiza o objeto pai para um objeto filho
+	// toda vez que a proposta salvar uma atualização de cartao, a entidade filho cartao, sera atualizada
+	
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Cartao cartao;
 
 	
 	// construtor default
@@ -98,6 +101,10 @@ public class Proposta implements Serializable{
 	}
 	
 	
+
+	public Cartao getCartao() {
+		return cartao;
+	}
 
 	public Instant getUpdateDataRegistro() {
 		return updateDataRegistro;
@@ -176,18 +183,9 @@ public class Proposta implements Serializable{
 		updateDataRegistro = Instant.now();
 	}
 	
-	// metodo para enviar dados para api externa
-
-	public void enviarParaAnalize(AnaliseFeingCliente analiseFeingCliente, Logger logger) {
-		// logica aqui
-		
-		logger.info("Preparando proposta para envio para analise api externa...");
-		
-		AnaliseClienteRequest request = new AnaliseClienteRequest(id, documento, nome);
-		
-		// enviando para o serviço externo fazer a analize dos dados do cliente
-		
-		ResponseFeingCliente resultado = analiseFeingCliente.consultarAnalise(request);   // <--aguarda resposta
+	// metodo para atualizar status da proposta
+	
+	public void atualizaStatusDaproposta(ResponseFeingCliente resultado) {
 		
 		if (resultado.getResultadoSolicitacao().equals("SEM_RESTRICAO")) {
 			statusProposta = StatusPropostaClienteEnum.ELEGIVEL;
@@ -196,13 +194,12 @@ public class Proposta implements Serializable{
 			statusProposta = StatusPropostaClienteEnum.NAO_ELEGIVEL;
 		}
 		
-		// atualizando o instante da consulta
-		
-		preUpdate();
-		
-		logger.info("Retorno da proposta concluida com sucesso! " + resultado.getResultadoSolicitacao());
 	}
-
 	
+	// metodo adiciona cartao a proposta
+	
+	public void adicionaCartao(Cartao cartao) {
+		this.cartao = cartao;
+	}
 	
 }

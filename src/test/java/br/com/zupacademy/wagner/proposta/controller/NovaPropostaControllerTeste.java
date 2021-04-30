@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.zupacademy.wagner.proposta.analiseClienteCartao.AnaliseFeingCliente;
 import br.com.zupacademy.wagner.proposta.analiseClienteCartao.ResponseFeingCliente;
-import br.com.zupacademy.wagner.proposta.analiseClienteCartao.StatusPropostaClienteEnum;
 import br.com.zupacademy.wagner.proposta.novaProposta.NovaPropostaRequest;
 
 @SpringBootTest
