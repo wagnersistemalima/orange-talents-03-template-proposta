@@ -2,13 +2,10 @@ package br.com.zupacademy.wagner.proposta.analiseClienteCartao;
 
 import java.io.Serializable;
 
-import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-
-import br.com.zupacademy.wagner.proposta.novaProposta.Proposta;
 
 // objetos para trafegar dados de consulta 
 
@@ -56,14 +53,6 @@ public class AnaliseClienteRequest implements Serializable{
 	public Long getIdProposta() {
 		return idProposta;
 	}
-
-	public Proposta toModel(EntityManager manager) {
-		
-		Proposta novaProposta = manager.find(Proposta.class, this.idProposta);
-				
-		return novaProposta;
-	}
-
 
 	
 }

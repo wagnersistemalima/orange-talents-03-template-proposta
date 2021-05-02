@@ -40,6 +40,7 @@ public class NovaPropostaController {
 		
 		Proposta propostaSalva = acaoCriacaoDaProposta.salvaPropostaValida(novaProposta);
 		
+		propostaSalva.adicionaEndereco(request);
 		
 		acaoCriacaoDaProposta.enviaPropostaParaAnalise(propostaSalva);
 		

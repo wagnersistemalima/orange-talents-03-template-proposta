@@ -77,7 +77,7 @@ public class AnaliseClienteControllerTeste {
 		AnaliseClienteRequest request = new AnaliseClienteRequest(idPropostaExistente, documentoExistente,
 				nomeValidoDonoDocumento);
 
-		mockMvc.perform(get("/propostas") // uri da requisição
+		mockMvc.perform(get("/propostas/*") // uri da requisição
 
 				.contentType("application/json") // cabeçario json
 
@@ -94,7 +94,7 @@ public class AnaliseClienteControllerTeste {
 		AnaliseClienteRequest request = new AnaliseClienteRequest(idPropostaNaoExistente, documentoNaoExistenteNoBanco,
 				nomeNaoValidoDonoDocumento);
 
-		mockMvc.perform(get("/propostas") // uri da requisição
+		mockMvc.perform(get("/propostas/*") // uri da requisição
 
 				.contentType("application/json") // cabeçario json
 
@@ -111,7 +111,7 @@ public class AnaliseClienteControllerTeste {
 		AnaliseClienteRequest request = new AnaliseClienteRequest(idPropostaExistente, documentoNaoExistenteNoBanco,
 				nomeNaoValidoDonoDocumento);
 
-		mockMvc.perform(get("/propostas") // uri da requisição
+		mockMvc.perform(get("/propostas/*") // uri da requisição
 
 				.contentType("application/json") // cabeçario json
 
@@ -128,7 +128,7 @@ public class AnaliseClienteControllerTeste {
 		AnaliseClienteRequest request = new AnaliseClienteRequest(idPropostaExistente, documentoExistente,
 				nomeNaoValidoDonoDocumento);
 
-		mockMvc.perform(get("/propostas") // uri da requisição
+		mockMvc.perform(get("/propostas/*") // uri da requisição
 
 				.contentType("application/json") // cabeçario json
 
@@ -145,7 +145,7 @@ public class AnaliseClienteControllerTeste {
 		AnaliseClienteRequest request = new AnaliseClienteRequest(idPropostaExistente, documentoNaoExistenteNoBanco,
 				nomeValidoDonoDocumento);
 
-		mockMvc.perform(get("/propostas") // uri da requisição
+		mockMvc.perform(get("/propostas/*") // uri da requisição
 
 				.contentType("application/json") // cabeçario json
 

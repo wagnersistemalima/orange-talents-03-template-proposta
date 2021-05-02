@@ -55,9 +55,8 @@ public class Proposta implements Serializable{
 	// da Entidade Proposta, também será atualizado no banco de dados todas as informações da 
 	// Entidades endereco associada.
 	
-	@NotNull
-	@Valid
-	@OneToOne(cascade = CascadeType.ALL)
+	
+	@OneToOne(cascade = CascadeType.MERGE, mappedBy = "proposta")
 	private Endereco endereco;
 	
 	@Enumerated(EnumType.STRING)
@@ -86,12 +85,29 @@ public class Proposta implements Serializable{
 	// construtor com argumentos
 	
 	public Proposta(@NotBlank String nome, @NotBlank String documento, @Email @NotBlank String email,
-			@Positive @NotNull BigDecimal salario, @NotNull @Valid Endereco endereco) {
+			@Positive @NotNull BigDecimal salario) {
 		this.nome = nome;
 		this.documento = documento.replaceAll("[^0-9]", "");      
 		this.email = email;
 		this.salario = salario;
+		
+	}
+	
+	// construtor com todos argumentos
+
+	public Proposta(@NotBlank String nome, @NotBlank String documento, @Email @NotBlank String email,
+			@Positive @NotNull BigDecimal salario, Endereco endereco, StatusPropostaClienteEnum statusProposta,
+			Instant dataRegistro, Instant updateDataRegistro, Cartao cartao) {
+		super();
+		this.nome = nome;
+		this.documento = documento;
+		this.email = email;
+		this.salario = salario;
 		this.endereco = endereco;
+		this.statusProposta = statusProposta;
+		this.dataRegistro = dataRegistro;
+		this.updateDataRegistro = updateDataRegistro;
+		this.cartao = cartao;
 	}
 
 	// getters
@@ -121,7 +137,11 @@ public class Proposta implements Serializable{
 	public String getEmail() {
 		return email;
 	}
+	
 
+	public Instant getDataRegistro() {
+		return dataRegistro;
+	}
 
 	public BigDecimal getSalario() {
 		return salario;
@@ -200,6 +220,13 @@ public class Proposta implements Serializable{
 	
 	public void adicionaCartao(Cartao cartao) {
 		this.cartao = cartao;
+	}
+	
+	// metodo para adicionar endereço
+
+	public void adicionaEndereco(@Valid NovaPropostaRequest request) {
+		this.endereco = new Endereco(request.getLogradouro(), request.getBairro(), request.getComplemento(), request.getUf(), this);
+		
 	}
 	
 }
