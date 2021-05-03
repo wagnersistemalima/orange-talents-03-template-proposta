@@ -11,3 +11,5 @@ INSERT INTO endereco (logradouro, bairro, complemento, uf, proposta_id) VALUES (
 INSERT INTO endereco (logradouro, bairro, complemento, uf, proposta_id) VALUES ('Rua dos oficiais, 12', 'Bodocongo', 'Proximo ao bar', 'BA', 4);
 INSERT INTO endereco (logradouro, bairro, complemento, uf, proposta_id) VALUES ('Rua das meninas, 15', 'Jose pinheiro', 'Proximo a loteria', 'CE', 5);
 
+
+

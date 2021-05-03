@@ -2,11 +2,16 @@ package br.com.zupacademy.wagner.proposta.associaCartaoProposta;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import br.com.zupacademy.wagner.proposta.criarBiometria.Biometria;
 import br.com.zupacademy.wagner.proposta.novaProposta.Proposta;
 
 // entidade
@@ -27,8 +32,16 @@ public class Cartao implements Serializable {
 
 	private BigDecimal limite;
 	
+	// associação com a proposta
+	
 	@OneToOne
 	private Proposta proposta;
+	
+	// associação com a biometria / um cartao pode possuir uma ou mais biometria
+	// Persist = propaga a operação de persistir um objeto Pai para um objeto Filho
+	
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.PERSIST)
+	private Set<Biometria> biometria = new HashSet<>();
 	
 	// construtor default
 	
@@ -67,6 +80,11 @@ public class Cartao implements Serializable {
 		return limite;
 	}
 	
+
+	public Set<Biometria> getBiometria() {
+		return biometria;
+	}
+
 	public Proposta getProposta() {
 		return proposta;
 	}
