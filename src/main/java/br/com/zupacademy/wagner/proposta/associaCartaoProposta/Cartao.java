@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import br.com.zupacademy.wagner.proposta.novaProposta.Proposta;
 
@@ -26,11 +27,8 @@ public class Cartao implements Serializable {
 
 	private BigDecimal limite;
 	
-	// associação com a proposta / merge = quando atualizar o objeto pai = proposta, tambem será atualizada
-	// no banco as informaçoes do objeto filho= cartao
-	
-	
-	
+	@OneToOne
+	private Proposta proposta;
 	
 	// construtor default
 	
@@ -47,6 +45,7 @@ public class Cartao implements Serializable {
 		this.emitidoEm = emitidoEm;
 		this.titular = titular;
 		this.limite = limite;
+		this.proposta = proposta;
 		
 	}
 
@@ -68,9 +67,14 @@ public class Cartao implements Serializable {
 		return limite;
 	}
 	
+	public Proposta getProposta() {
+		return proposta;
+	}
 	
 	
 	// HashCode $ equals comparando pelo id
+
+	
 
 	@Override
 	public int hashCode() {

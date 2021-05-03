@@ -37,7 +37,7 @@ public class ExecultaTarefaSolicitaCartao {
 	// 1 metodo que verifica tempos em tempos as propostas com status Elegivel, e envia para api externa
 	// para associar a um cartao
 
-	@Scheduled(fixedDelay = 20000) // tempo de espera em milissegundos
+	@Scheduled(fixedDelay = 20000, initialDelay = 2000) // tempo de espera em milissegundos
 	public void execultaSolicitacaoCartao() {
 
 		logger.info("Execultando tarefa agendada solicitação cartao!");
